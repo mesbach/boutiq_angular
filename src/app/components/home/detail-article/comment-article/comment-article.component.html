@@ -1,0 +1,94 @@
+<div id="comments">
+  <h4 class="comment-list-title">{{comments.length}} Komentar</h4>
+  <ul class="comment-list">
+    <li class="comment even parent" *ngFor="let comment of comments">
+      <div class="comment-item">
+        <div class="comment-author">
+          <!-- <img alt="18_blogpost" src="images/blogs/avatar2.png"> -->
+          <img alt="{{comment.nama_customer}}" src="{{comment.user_photo_profile | imageUrl | async}}">
+        </div>
+        <div class="comment-body">
+          <h5 class="author">{{comment.nama_customer}}</h5>
+          <span class="date-comment">{{comment.created_at | date : "dd MMMM yyyy"}}</span>
+          <div class="comment-content" [innerHTML]="comment.content"></div>
+          <a rel="nofollow" class="comment-reply-link" href="#">reply
+            <i class="fa fa-mail-reply"></i>
+          </a>
+        </div>
+      </div>
+      <!-- <ol class="children">
+            <li class="comment odd">
+              <div class="comment-item">
+                <div class="comment-author">
+                  <img alt="18_blogpost" src="images/blogs/avatar3.png">
+                </div>
+                <div class="comment-body">
+                  <h5 class="author">Jonathan Doe</h5>
+                  <span class="date-comment">20 Dec 2015</span>
+                  <div class="comment-content">
+                    <p>Donec faucibus enim vitae volutpat sollicitudin. Mauris gravida nulla turpis, sit amet feugiat magna
+                      laoreet nec. Phasellus ut velit at tortor euismod placerat. Sed vulputate quam vel convallis convallis.</p>
+                  </div>
+                  <a rel="nofollow" class="comment-reply-link" href="#">reply
+                    <i class="fa fa-mail-reply"></i>
+                  </a>
+                </div>
+    
+              </div>
+            </li>
+            <!-- #comment-## -->
+      <!-- </ol> -->
+      <!-- .children -->
+    </li>
+    <!-- <li class="comment even parent">
+      <div class="comment-item">
+        <div class="comment-author">
+          <img alt="18_blogpost" src="images/blogs/avatar2.png">
+        </div>
+        <div class="comment-body">
+          <h5 class="author">Jonathan Doe</h5>
+          <span class="date-comment">20 Dec 2015</span>
+          <div class="comment-content">
+            <p>Donec faucibus enim vitae volutpat sollicitudin. Mauris gravida nulla turpis, sit amet feugiat magna laoreet
+              nec. Phasellus ut velit at tortor euismod placerat. Sed vulputate quam vel convallis convallis. Fusce gravida
+              maximus elit non ullamcorper. Integer urna nunc vehicula eu elit pharetra, condimentum tempor justo. Proin
+              ac laoreet enim.</p>
+          </div>
+          <a rel="nofollow" class="comment-reply-link" href="#">reply
+            <i class="fa fa-mail-reply"></i>
+          </a>
+        </div>
+      </div>
+      <ol class="children">
+        <li class="comment odd">
+          <div class="comment-item">
+            <div class="comment-author">
+              <img alt="18_blogpost" src="images/blogs/avatar3.png">
+            </div>
+            <div class="comment-body">
+              <h5 class="author">Jonathan Doe</h5>
+              <span class="date-comment">20 Dec 2015</span>
+              <div class="comment-content">
+                <p>Donec faucibus enim vitae volutpat sollicitudin. Mauris gravida nulla turpis, sit amet feugiat magna laoreet
+                  nec. Phasellus ut velit at tortor euismod placerat. Sed vulputate quam vel convallis convallis.</p>
+              </div>
+              <a rel="nofollow" class="comment-reply-link" href="#">reply
+                <i class="fa fa-mail-reply"></i>
+              </a>
+            </div>
+
+          </div>
+        </li>
+        <!-- #comment-## -->
+      <!-- </ol> -->
+      <!-- .children -->
+    <!-- </li> --> 
+    <!-- #comment-## -->
+  </ul>
+  <app-input-article-comment *ngIf="auth.isLoggedIn" 
+    [id_article]="id_article" 
+    [id_parent]="id_parent"
+    (commentPosted)="onCommentPosted($event)"
+    ></app-input-article-comment>
+
+</div>

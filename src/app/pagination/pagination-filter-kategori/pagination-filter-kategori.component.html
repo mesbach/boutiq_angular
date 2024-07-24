@@ -1,0 +1,37 @@
+<div class="widget widget_product_categories">
+  <h2 class="widget-title">Kategori</h2>
+  <ul class="product-categories">
+      <li *ngFor="let cp of categoriesOfProducts">
+          <a class="cursor-pointer" (click)="clickKategori(cp.kategori_master_produk)">{{cp.nama_kategori_master_produk == null ? "Lainnya" : cp.nama_kategori_master_produk}}</a>
+          <span class="count-item">({{cp.jumlah}})</span>
+      </li>
+      <!-- <li>
+          <a href="#">Sunglasses</a>
+          <span class="count-item">(25)</span>
+      </li>
+      <li>
+          <a href="#">Watches</a>
+          <span class="count-item">(23)</span>
+      </li>
+      <li class="current-cat">
+          <a href="#">Jewelry</a>
+          <span class="count-item">(9)</span>
+      </li>
+      <li>
+          <a href="#">Hats, Scraves & Gloves</a>
+          <span class="count-item">(12)</span>
+      </li>
+      <li>
+          <a href="#">Underwear & Socks</a>
+          <span class="count-item">(48)</span>
+      </li>
+      <li>
+          <a href="#">Grooming</a>
+          <span class="count-item">(6)</span>
+      </li>
+      <li>
+          <a href="#">Belts</a>
+          <span class="count-item">(18)</span>
+      </li> -->
+  </ul>
+</div>

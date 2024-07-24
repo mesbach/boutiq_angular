@@ -1,0 +1,31 @@
+<div ng2-carouselamos [items]="trendings" [width]="1000" [$prev]="prev" [$next]="next" [$item]="item">
+</div>
+
+<ng-template #prev>
+	<button class="btn btn-warning">
+		<i class="fa fa-arrow-left"></i>
+	</button>
+</ng-template>
+
+<ng-template #next>
+	<button class="btn btn-warning">
+		<i class="fa fa-arrow-right"></i>
+	</button>
+</ng-template>
+
+<ng-template #item let-item>
+	<div class="banner-text style4">
+		<div class="image" style="height: 320px;">
+			<a href="#">
+				<div class="img-preview-container">
+					<img class="image-preview-small" src="{{item.path_image | imageProductUrl | async}}" alt="" />
+				</div>
+			</a>
+		</div>
+		<div class="content-text">
+			<h4 class="subtitle" style="white-space: nowrap;">{{item.nama_product}}</h4>
+			<h3 class="title">{{item.nama_kategori_master_produk}}</h3>
+			<a class="shop-now" href="#">shop now!</a>
+		</div>
+	</div>
+</ng-template>

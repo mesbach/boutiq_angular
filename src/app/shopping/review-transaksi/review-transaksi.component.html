@@ -1,0 +1,112 @@
+<div class="main-container no-sidebar" *ngIf="isRequestingTransaction == true">
+  <p style="text-align: center">Memuat detail transaksi ...</p>
+</div>
+
+<div class="main-container no-sidebar" *ngIf="!isRequestingTransaction">
+
+  <div class="container" *ngIf="isTransactionFound == false">
+    <h4 style="text-align: center;color: red;">Transaksi tidak dapat ditemukan</h4>
+    <p style="text-align: center">
+      <a [routerLink]="['/shopping/transaksi']">Kembali ke daftar transaksi</a>
+    </p>
+  </div>
+
+  <div class="container" *ngIf="isTransactionFound">
+    <div class="main-content">
+      <div class="page-title">
+        <h3>Detail Transaksi</h3>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 col-md-12 transaction-container">
+          <div class="col-lg-6 col-md-12 col-sm-12" style="padding-left: 0px">
+            <div class="col-lg-12" style="padding-left: 0px">
+              <div class="col-lg-6">
+                <label class="label-header">No Tagihan</label>
+                <label class="label-data">{{Transaksi.kode_checkout}}</label>
+                <label class="label-header">{{Transaksi.created_at | date : "dd MMMM yyyy HH:mm"}}</label>
+              </div>
+              <div class="col-lg-6">
+                <label class="label-header">Total Tagihan</label>
+                <label class="label-data">{{Transaksi.price_total | currency : "Rp "}}</label>
+              </div>
+            </div>
+
+
+
+          </div>
+
+          <div class="col-lg-6 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <h5>Tujuan Pengiriman</h5>
+              <table class="">
+                <tr>
+                  <!-- <td>Nama Penerima</td> -->
+                  <td>{{Transaksi.snapshot_alamat.nama_penerima}}</td>
+                </tr>
+                <tr>
+                  <!-- <td>Alamat</td> -->
+                  <td>{{Transaksi.snapshot_alamat.alamat_lengkap}}</td>
+                </tr>
+                <tr>
+                  <!-- <td>Kelurahan</td> -->
+                  <td>{{Transaksi.snapshot_alamat.nama_kelurahan}}, {{Transaksi.snapshot_alamat.nama_kecamatan}}, {{Transaksi.snapshot_alamat.nama_kabupaten}}</td>
+                </tr>
+
+                <tr>
+                  <!-- <td>Provinsi</td> -->
+                  <td>{{Transaksi.snapshot_alamat.nama_provinsi}} {{Transaksi.snapshot_alamat.kode_pos_penerima}}</td>
+                </tr>
+
+                <tr>
+                  <!-- <td>Telepon</td> -->
+                  <td>{{Transaksi.snapshot_alamat.telepon_penerima}}</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- list barang dalam transaksi -->
+        <div class="col-lg-12" style="padding-left: 0px; margin-top: 2rem">
+          <!-- iterasi barang dalam transaksi -->
+          <div class="col-lg-12" *ngFor="let dtl of Transaksi.details" style="padding-left: 0px; margin-bottom: 2rem;">
+
+            <div class="col-lg-12 col-md-12 col-sm-12" style="padding-left: 0px">
+              <img src="{{dtl.snapshot_cart.thumbnail_path | imageProductUrl | async}}" class="small-thumbnail" style="float: left; margin-right: 1rem"
+              /> <a [routerLink]="['/produk/detail', dtl.snapshot_cart.id_product]">{{dtl.snapshot_cart.nama_product}}</a>
+              <br/> {{dtl.qty}} @ {{dtl.price | currency : "Rp "}}
+            </div>
+
+            <div class="col-lg-12 col-md-12 col-sm-12" (mouseout)="resetRatingHover(dtl.id_detail_checkout)">
+              <span>Rating</span>
+              <div class="col-lg-12">
+                <i *ngFor="let i of ratingArray" class="fa fa-star" (mouseover)="ratingHover(i, dtl.id_detail_checkout)" (click)="setRating(i, dtl.id_detail_checkout)"
+                  [style.color]="(dtl.hoverRating >= i) || (dtl.hoverRating == 0 && dtl.rating_value >= i) ? 'yellow' : '#555'"></i>
+              </div>
+            </div>
+
+            <div class="col-lg-12">
+              <span>Ulasan</span>
+              <div class="col-lg-12">
+                <div class="col-lg-10" style="">
+                  <textarea class="form-control" #reviewContent>{{dtl.review}}</textarea>
+                </div>
+                <div class="col-lg-2">
+                  <button class="btn btn-primary" type="button" (click)="submitReview(reviewContent, dtl.id_detail_checkout)">Kirim Ulasan</button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <!-- iterasi barang dalam transaksi -->
+
+
+        </div>
+        <!-- end list barang dalam transaksi -->
+
+
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,18 @@
+<!-- <app-public-header [showMainMenu]="false"></app-public-header> -->
+
+<div class="row">
+  <div class="col-lg-offset-4">
+
+    <div class="margin-top: 80px" class="form-horizontal">
+      <div class="form-group">
+        <label class="control-label col-lg-1">Email</label>
+        <div class="col-lg-6">
+          <input type="email" [(ngModel)]="email" placeholder="Masukkan Email" class="form-control"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <button type="button" (click)="sendActivationEmail()" class="col-lg-offset-1 btn btn-warning">Kirim Email Aktivasi</button>
+      </div>
+    </div>
+  </div>
+</div>

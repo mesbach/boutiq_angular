@@ -1,0 +1,128 @@
+<div class="main-container">
+  <div class="container" *ngIf="isLoading">
+    <h5>Sedang memuat artikel</h5>
+  </div>
+
+  <div class="container" *ngIf="isLoading == false && article == null">
+    <h5>Tidak dapat memuat artikel</h5>
+  </div>
+
+  <div class="container" *ngIf="isLoading == false && article != null">
+    <div class="blog-detail">
+      <article class="blog-item">
+        <h3 class="blog-title">
+          <a>{{article.judul}}</a>
+        </h3>
+        <div class="entry-meta">
+          <span class="post-date">{{article.created_at | date : "dd MMMM yyyy"}}</span>
+          <span class="blog-comment">
+            <i class="fa fa-comment"></i>
+            <span class="count-comment">{{article.jumlah_comment}}</span>
+          </span>
+        </div>
+        <div class="post-thumbnail">
+          <a href="#">
+            <img alt="17_blog" src="{{article.gambar_berita}}">
+          </a>
+        </div>
+        <div class="blog-short-desc" [innerHTML]="article.content">
+          
+        </div>
+      </article>
+    </div>
+    <div class="comment-social" *ngIf="false">
+      <h4>2 Comments</h4>
+      <div class="social">
+        <span>Share</span>
+        <a href="#">
+          <i class="fa fa-facebook"></i>
+        </a>
+        <a href="#">
+          <i class="fa fa-twitter"></i>
+        </a>
+        <a href="#">
+          <i class="fa fa-google-plus"></i>
+        </a>
+        <a href="#">
+          <i class="fa fa-pinterest"></i>
+        </a>
+        <a href="#">
+          <i class="fa fa-instagram"></i>
+        </a>
+      </div>
+    </div>
+    <div class="author-info-wrap" *ngIf="showAuthorInfo">
+      <div class="avatar">
+        <img alt="18_blogpost" src="images/blogs/avatar.png">
+      </div>
+      <div class="content">
+        <div class="author-name">
+          <a href="#">Admin</a>
+        </div>
+        <div class="text">
+          <p>Praesent accumsan, nunc eget semper cursus, tellus nisl sagittis massa, vel egestas erat odio sed sapien. In malesuada
+            ipsum ut elit pretium. In a luctus tellus. Fusce id euismod justo.</p>
+        </div>
+      </div>
+    </div>
+    <div class="related-wrap" *ngIf="showSuggestion">
+      <h4 class="related-title"> YOU MAY ALSO LIKE</h4>
+      <ul class="blog-related row">
+        <li class="blog-item col-sm-4">
+          <div class="post-thumbnail">
+            <a class="banner-opacity" href="#">
+              <img alt="17_blog" src="images/blogs/blog1.png">
+            </a>
+          </div>
+          <h3 class="blog-title">
+            <a href="#">Onteger lectus urna ultricies vel lectus</a>
+          </h3>
+          <div class="entry-meta">
+            <span class="post-date">20 Dec 2015</span>
+            <span class="blog-comment">
+              <i class="fa fa-comment"></i>
+              <span class="count-comment">36</span>
+            </span>
+          </div>
+        </li>
+        <li class="blog-item col-sm-4">
+          <div class="post-thumbnail">
+            <a class="banner-opacity" href="#">
+              <img alt="17_blog" src="images/blogs/blog2.png">
+            </a>
+          </div>
+          <h3 class="blog-title">
+            <a href="#">Onteger lectus urna ultricies vel lectus</a>
+          </h3>
+          <div class="entry-meta">
+            <span class="post-date">20 Dec 2015</span>
+            <span class="blog-comment">
+              <i class="fa fa-comment"></i>
+              <span class="count-comment">36</span>
+            </span>
+          </div>
+        </li>
+        <li class="blog-item col-sm-4">
+          <div class="post-thumbnail">
+            <a class="banner-opacity" href="#">
+              <img alt="17_blog" src="images/blogs/blog3.png">
+            </a>
+          </div>
+          <h3 class="blog-title">
+            <a href="#">Onteger lectus urna ultricies vel lectus</a>
+          </h3>
+          <div class="entry-meta">
+            <span class="post-date">20 Dec 2015</span>
+            <span class="blog-comment">
+              <i class="fa fa-comment"></i>
+              <span class="count-comment">36</span>
+            </span>
+          </div>
+        </li>
+      </ul>
+    </div>
+    
+    <app-comment-article [id_article]="id_article" [id_parent]="0"></app-comment-article>
+    
+  </div>
+</div>

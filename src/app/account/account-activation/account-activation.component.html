@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="margin-top: 80px" *ngIf="show_msg">
+    <h5 style="text-align: center">{{activation_msg}}</h5>
+  </div>
+
+  <div class="col-lg-10 col-lg-offset-2" *ngIf="show_input">
+    <div class="form-horizontal">
+      <div class="form-group">
+        <label class="control-label col-lg-2">Kode Aktivasi</label>
+        <div class="col-lg-5">
+          <input type="text" class="form-control" [(ngModel)]="activation_code" />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-lg-12">
+          <button type="button" class="btn btn-primary col-lg-offset-2" (click)="sendActivation()">Aktivasi</button>
+        </div>
+
+      </div>
+    </div>
+  </div>

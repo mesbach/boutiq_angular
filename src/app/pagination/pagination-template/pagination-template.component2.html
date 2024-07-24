@@ -1,0 +1,257 @@
+<div class="main-container shop-with-banner left-slidebar">
+    <div class="container">
+        <div class="shop-banner">
+            <!-- <img src="images/slides/slider-cat2.jpg" alt=""> -->
+        </div>
+        <div class="breadcrumbs style2">
+            <a href="#">Home</a>
+            <span>Categories_Leftsidebar</span>
+        </div>
+        <div class="row">
+            <div class="main-content col-sm-8 col-md-9">
+                <div class="shop-top">
+                    <app-pagination-info-halaman 
+                        *ngIf="showInfoHalaman"
+                        [apiUrl]="apiUrl"
+                        [limitPerPage]="limitPerPageFromUrl"
+                        [currentItemsCount]="itemsLoadedCount"
+                        [currentPage]="pageFromUrl"
+                        [filter]="{
+                            kategori: filterKategoriFromUrl, 
+                            harga: filterHargaFromUrl, 
+                            keyword: keywordFromUrl,
+                            warna: filterWarnaFromUrl
+                        }"
+                        (totalFoundChanged)="totalFoundChanged($event)"
+                        ></app-pagination-info-halaman>
+                    <!-- <div class="shop-top-left" *ngIf="showInfoHalaman">
+                        <span class="woocommerce-result-count">Menampilkan {{indexItemFrom}}-{{indexItemTo}} dari {{totalCount}} hasil</span>
+                    </div> -->
+                    <div class="shop-top-right" >
+                        <app-pagination-filter-sort 
+                            *ngIf="useFilterSort"
+                            [available_order]="availableOrderOptions"
+                            [selected_order]="defaultOrder"
+                            (onChanged)="orderChanged($event)"
+                        ></app-pagination-filter-sort>
+                        <!-- <div class="orderby-wapper" *ngIf="useFilterSort">
+                            <select class="orderby" [(ngModel)]="selectedFilter.sort_order" (change)="updateRouter()">
+                                <option *ngFor="let opt of availableFilter.sort_order" [value]="opt.val" [selected]="opt.val === appliedFilter.sort_order">{{opt.text}}</option>
+                            </select>
+                        </div> -->
+                        <app-pagination-filter-limit-page 
+                            *ngIf="useFilterLimitPage"
+                            (onChangeValue)="limitPageChanged($event)"
+                            [defaultValue]="4"
+                            ></app-pagination-filter-limit-page>
+                        <!-- <div class="orderby-wapper display-products" *ngIf="useFilterLimitPage">
+                            <span class="label-filter">Tampilkan:</span>
+                            <select class="orderby" [(ngModel)]="selectedFilter.limit_per_page" (change)="updateRouter()">
+                                <option *ngFor="let dl of availableFilter.limit_per_page" [value]="dl" [selected]="dl == appliedFilter.limit_per_page">{{dl}} produk</option>
+                            </select>
+                        </div> -->
+
+                        <div class="show-grid-list hide">
+                            <span class="label-filter">VIEW:</span>
+                            <a class="show-grid active" href="#">
+                                <i class="fa fa-th"></i>
+                            </a>
+                            <a class="show-list" href="#">
+                                <i class="fa fa-list"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <ng-content *ngIf="isSearching == false"></ng-content>
+                <div class="loading-animation" *ngIf="isSearching">
+                    <p>Sedang memuat data</p>
+                </div>
+                <div class="error-msg" *ngIf="isSearchError">
+                    <p>Terjadi kesalahan saat melakukan pencarian produk</p>
+                </div>
+                <app-pagination-filter-halaman 
+                    *ngIf="useFilterHalaman"
+                    [limitPerPage]="limitPerPageFromUrl"
+                    [currentItemsCount]="itemsLoadedCount"
+                    [totalItems]="foundTotal"
+                    [currentPage]="pageFromUrl"
+                    (pageChanged)="pageChanged($event)"
+                    ></app-pagination-filter-halaman>
+            </div>
+            <div class="col-sm-4 col-md-3 sidebar">
+                <!-- Product category -->
+                <app-pagination-filter-kategori 
+                    *ngIf="useFilterKategori"
+                    [apiUrl]="apiUrl"
+                    [groupBy]="['kategori_master_produk', 'nama_kategori_master_produk']"
+                    [filter]="{
+                        keyword: keywordFromUrl, 
+                        warna: filterWarnaFromUrl,
+                        harga: filterHargaFromUrl
+                    }"
+                    (onFilterChanged)="filterKategoriChanged($event)"
+                    ></app-pagination-filter-kategori>
+                <!-- <div class="widget widget_product_categories">
+                    <h2 class="widget-title">Kategori</h2>
+                    <ul class="product-categories">
+                        <li *ngFor="let cp of categoriesOfProducts">
+                            <a class="cursor-pointer" (click)="applyFilterCategory(cp)">{{cp.nama_kategori_master_produk == null ? "Lainnya" : cp.nama_kategori_master_produk}}</a>
+                            <span class="count-item">({{cp.jumlah}})</span>
+                        </li>
+                        <li>
+                            <a href="#">Sunglasses</a>
+                            <span class="count-item">(25)</span>
+                        </li>
+                        <li>
+                            <a href="#">Watches</a>
+                            <span class="count-item">(23)</span>
+                        </li>
+                        <li class="current-cat">
+                            <a href="#">Jewelry</a>
+                            <span class="count-item">(9)</span>
+                        </li>
+                        <li>
+                            <a href="#">Hats, Scraves & Gloves</a>
+                            <span class="count-item">(12)</span>
+                        </li>
+                        <li>
+                            <a href="#">Underwear & Socks</a>
+                            <span class="count-item">(48)</span>
+                        </li>
+                        <li>
+                            <a href="#">Grooming</a>
+                            <span class="count-item">(6)</span>
+                        </li>
+                        <li>
+                            <a href="#">Belts</a>
+                            <span class="count-item">(18)</span>
+                        </li>
+                    </ul>
+                </div> -->
+                <!-- ./Product category -->
+                <!-- Filter price -->
+                <app-pagination-filter-harga 
+                    *ngIf="useFilterHarga"
+                    [apiUrl]="apiUrl"
+                    [columns]="['price']"
+                    [filter]="{
+                        kategori: filterKategoriFromUrl, 
+                        keyword: keywordFromUrl,
+                        warna: filterWarnaFromUrl
+                    }"
+                    (hargaChanged)="hargaChanged($event)"
+                    ></app-pagination-filter-harga>
+                <!-- <div class="widget widget_price_filter" *ngIf="useFilterHarga">
+                    <h2 class="widget-title">Harga</h2>
+                    <div>
+                        <input class="filter-price" type="number" placeholder="Harga minimal ({{availableFilter.price_min | currency : 'Rp '}})" [(ngModel)]="selectedFilter.price_min" />
+                        <input class="filter-price" type="number" placeholder="Harga maksimal ({{availableFilter.price_max | currency : 'Rp '}})" [(ngModel)]="selectedFilter.price_max" />
+                        <button class="button" style="margin-top: 5px" (click)="updateRouter()">Terapkan Filter</button>
+                    </div>
+                    <div class="price_slider_wrapper">
+                        <div class="amount-range-price">Price: $85.00 - $125.00</div>
+                        <div data-label-reasult="price:" data-min="0" data-max="500" data-unit="$" class="slider-range-price " data-value-min="50"
+                            data-value-max="350"></div>
+                        <button class="button">Filter NOW</button> 
+                        
+                    </div>
+                </div> -->
+                <!-- ./Filter price -->
+                <!-- By color -->
+                <app-pagination-filter-warna 
+                    *ngIf="useFilterWarna"
+                    [apiUrl]="apiUrl"
+                    [apiMethod]="'get_count?get-warna'"
+                    [groupBy]="['warna_produk']"
+                    [filter]="{
+                        kategori: filterKategoriFromUrl,
+                        harga: filterHargaFromUrl,
+                        keyword: keywordFromUrl
+                    }"
+                    (onChanged)="colorChanged($event)"
+                    ></app-pagination-filter-warna>
+                <!-- <div class="widget widget_fillter_color"> -->
+                    <!-- <h2 class="widget-title">Warna</h2> -->
+                    <!-- <div class="inner"> -->
+                        <!-- <a *ngFor="let color of availableColors" class="cursor-pointer {{color.selected ? 'active' : ''}}" (click)="applyColorFilter($event, color)"> -->
+                            <!-- <span [style.background-color]="color.warna_produk"></span> -->
+                        <!-- </a> -->
+                        <!-- <a href="#">
+                            <span style="background-color:#736357;"></span>
+                        </a>
+                        <a class="active" href="#">
+                            <span style="background-color:#bdb871;"></span>
+                        </a>
+                        <a href="#">
+                            <span style="background-color:#f26522;"></span>
+                        </a>
+                        <a href="#">
+                            <span style="background-color:#fff799;"></span>
+                        </a> -->
+                    <!-- </div> -->
+                <!-- </div> -->
+                <!-- ./By color -->
+                <!-- By color -->
+                <app-pagination-filter-ukuran
+                    *ngIf="useFilterUkuran"
+                ></app-pagination-filter-ukuran>
+                <!-- <div class="widget widget_fillter_size">
+                    <h2 class="widget-title">SIZE Option</h2>
+                    <div class="inner">
+                        <a href="#">
+                            <span>S</span>
+                        </a>
+                        <a class="active" href="#">
+                            <span>M</span>
+                        </a>
+                        <a href="#">
+                            <span>L</span>
+                        </a>
+                        <a href="#">
+                            <span>XL</span>
+                        </a>
+                        <a href="#">
+                            <span>XXL</span>
+                        </a>
+                    </div>
+                </div> -->
+                <!-- ./By color -->
+                <app-widget-recent-product-small *ngIf="showRecentProduct"></app-widget-recent-product-small>
+                <!-- <div class="widget widget_recent_product" *ngIf="showRecentProduct">
+                    <h2 class="widget-title">recent products</h2>
+                    <ul class="product-categories">
+                        <li *ngFor="let p of shopping.myRecentProducts">
+                            <div class="product-thumb">
+                                <a [routerLink]="['/produk/detail/', p.id_product]">
+                                    <img alt="" src="{{p.thumbnail_path}}">
+                                </a>
+                            </div>
+                            <div class="product-info">
+                                <h3 class="product-name">
+                                    <a [routerLink]="['/produk/detail/', p.id_product]">{{p.nama_product}}</a>
+                                </h3>
+                                <span class="price">
+                                    <ins>{{p.price | currency : "Rp "}}</ins>
+                                    
+                                </span>
+                            </div>
+                        </li>
+                    </ul>
+                </div> -->
+                <!-- Product tags -->
+                <div class="widget widget_product_tag_cloud style2" *ngIf="useFilterTag">
+                    <h2 class="widget-title">TAGS</h2>
+                    <div class="tagcloud">
+                        <a href="#">Handbag</a>
+                        <a href="#">Leather</a>
+                        <a href="#">Vintage</a>
+                        <a href="#">Women</a>
+                        <a href="#">Sexy Dress</a>
+                        <a href="#">Shoping</a>
+                    </div>
+                </div>
+                <!-- ./Product tags -->
+            </div>
+        </div>
+    </div>
+</div>

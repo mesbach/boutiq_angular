@@ -1,0 +1,61 @@
+<div class="container" *ngIf="profile != null">
+  <div class="col-lg-6">
+    <div class="form-horizontal">
+      <div class="col-lg-offset-4" style="padding-left: 1rem">
+        <h4>Data Profil</h4>
+      </div>
+
+      <div class="form-group">
+        <label class="control-label col-lg-4">Foto Profil</label>
+        <div class="col-lg-8">
+          <img src="{{photo_profile | imageUrl | async}}" #previewPhotoProfile/>
+          <div class="col-lg-12" style="text-align: right; margin-top: 1rem">
+            <button type="button" class="btn btn-primary" (click)="pilihFile.click()"><i class="fa fa-photo"></i> Ganti Foto</button>
+            <input type="file" style="display: none" #pilihFile (change)="fis.inputImageFileChanged($event, '1', previewPhotoProfile)"/>
+            <button type="button" class="btn btn-success" (click)="updateProfilePhoto()" *ngIf="new_photo_profile != null"><i class="fa fa-save"></i> Update</button>
+        </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="control-label col-lg-4">Nama</label>
+        <div class="col-lg-8">
+          <input type="text" class="form-control" [(ngModel)]="profile.nama_customer" />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="control-label col-lg-4">Tanggal Lahir</label>
+        <div class="col-lg-8">
+          <input type="date" class="form-control" [(ngModel)]="profile.tanggal_lahir" placeholder="yyyy-mm-dd" />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="control-label col-lg-4">Telepon</label>
+        <div class="col-lg-8">
+          <input type="text" class="form-control" [(ngModel)]="profile.telepon" />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="control-label col-lg-4">Jenis Kelamin</label>
+        <div class="col-lg-8">
+          <select class="form-control" [(ngModel)]="profile.jenis_kelamin">
+            <option value="L">Laki-laki</option>
+            <option value="P">Perempuan</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-lg-8 col-lg-offset-4" style="text-align: right">
+          <a class="btn btn-warning" routerLink="/account/update-password"><i class="fa fa-key"></i>Ubah Password</a>
+          <button type="button" class="btn btn-success" (click)="updateProfile()"><i class="fa fa-save"></i> Simpan</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <app-daftar-buku-alamat *ngIf="hasProfile"></app-daftar-buku-alamat>
+</div>

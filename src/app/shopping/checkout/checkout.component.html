@@ -1,0 +1,141 @@
+<div class="container">
+<div class="col-lg-6">
+    <div class="form-checkout order">
+        <h5 class="form-title">Produk Pesanan Anda</h5>
+        <table class="shop-table order">
+            <thead>
+                <tr>
+                    <th class="product-name">PRODUK</th>
+                    <th class="total">Harga</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let p of products">
+                    <td class="product-name">{{p.nama_product}}
+                        <br/>
+                        <small>Qty: {{p.qty}} @ {{p.price | currency : "Rp "}}</small>
+                    </td>
+                    <td class="total">
+                        <span class="price">{{p.price_total | currency : "Rp "}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="subtotal">Subtotal</td>
+                    <td class="total">
+                        <span class="price">{{ totalProductPrice | currency : "Rp "}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="subtotal">Diskon</td>
+                    <td class="total">0%</td>
+                </tr>
+                <tr>
+                    <td class="subtotal">Ongkos Kirim</td>
+                    <td class="total">{{selected_alamat == null ? 'Pilih Alamat Tujuan' : ( deliveryFee == null ? 'Alamat tujuan tidak terjangkau' : (deliveryFee['fee'] | currency : "Rp ") ) }}</td>
+                </tr>
+                <tr class="order-total">
+                    <td class="subtotal">Harga Total</td>
+                    <td class="total">
+                        <span class="price">{{ totalPrice | currency : "Rp "}}</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="div-btn-lg">
+            <button style="margin-bottom: 2rem;" class="button btn-primary medium" type="button" (click)="checkoutProducts()">Lanjutkan Ke Checkout</button>
+        </div>
+    </div>
+</div>
+<div class="col-lg-6">
+    <div class="col-lg-12" *ngIf="isRequestingAlamat == true">
+        <span>Memuat daftar alamat</span>
+    </div>
+    <div class="col-lg-12" *ngIf="isRequestingAlamat == false">
+        <div class="col-lg-12">
+            <span class="label-header">Alamat Pengiriman</span>
+            <a routerLink="/alamat/input" class="btn btn-primary pull-right" style="margin-bottom: 1rem">
+                <i class="fa fa-plus"></i> Alamat Baru</a>
+        </div>
+        <div class="col-lg-12">
+            <select class="form-control" [(ngModel)]="dataCheckout.alamat" (change)="alamatChanged()">
+                <option *ngFor="let alm of listAlamatPengiriman" [value]="alm.id_alamat">{{alm.nama_alamat}}</option>
+            </select>
+        </div>
+        <div class="col-lg-12 detail-alamat" *ngIf="dataCheckout.alamat.length > 0">
+            <table class="table table-bordered table-striped">
+                <tr>
+                    <td style="width: 40%">Nama Penerima</td>
+                    <td>{{selected_alamat.nama_penerima}}</td>
+                </tr>
+                <tr>
+                    <td>Telepon</td>
+                    <td>{{selected_alamat.telepon_penerima}}</td>
+                </tr>
+                <!-- <tr>
+                    <td>Provinsi</td>
+                    <td>{{selected_alamat.nama_provinsi}}</td>
+                </tr>
+                <tr>
+                    <td>Kabupaten</td>
+                    <td>{{selected_alamat.nama_kabupaten}}</td>
+                </tr>
+                <tr>
+                    <td>Kecamatan</td>
+                    <td>{{selected_alamat.nama_kecamatan}}</td>
+                </tr>
+                <tr>
+                    <td>Kelurahan</td>
+                    <td>{{selected_alamat.nama_kelurahan}}</td>
+                </tr> -->
+                <tr>
+                    <td>Alamat lengkap</td>
+                    <td>
+                        {{selected_alamat.alamat_lengkap}} <br/>
+                        {{selected_alamat.nama_kelurahan}}, {{selected_alamat.nama_kecamatan}}, {{selected_alamat.nama_kabupaten}} <br/>
+                        {{selected_alamat.nama_provinsi}} {{selected_alamat.kode_pos_penerima}}
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="col-lg-12" *ngIf="isRequestingPaymentMethod == true">
+        <span>Memuat daftar pembayaran</span>
+    </div>
+    <div class="col-lg-12" style="margin-top:1rem" *ngIf="isRequestingPaymentMethod == false">
+        <div class="col-lg-12">
+            <span class="label-header">Pilih Metode Pembayaran</span>
+        </div>
+        <div class="col-lg-12" style="margin-top: 1rem">
+            <select class="form-control" [(ngModel)]="dataCheckout['payment_method']" (change)="paymentMethodChanged()">
+                <option *ngFor="let pm of listPaymentMethod" [value]="pm.id_payment_method">{{pm.nama_payment}}</option>
+            </select>
+        </div>
+        <div class="col-lg-12" *ngIf="dataCheckout.payment_method.length > 0">
+            <table class="table table-striped">
+                <tr>
+                    <td style="width: 40%">Nama Bank</td>
+                    <td>{{selected_payment_method.nama_bank}}</td>
+                </tr>
+                <tr>
+                    <td>No Rekening</td>
+                    <td>{{selected_payment_method.no_rekening}}</td>
+                </tr>
+                <tr>
+                    <td>Pemilik Rekening</td>
+                    <td>{{selected_payment_method.nama_rekening}}</td>
+                </tr>
+                <tr>
+                    <td>Cabang</td>
+                    <td>{{selected_payment_method.cabang_bank}}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="div-btn-sm">
+            <button style="margin-top: 1rem; margin-bottom: 2rem;" class="button btn-primary medium" type="button" (click)="checkoutProducts()">Lanjutkan Ke Checkout</button>
+        </div>
+    </div>
+
+
+</div>
+</div>

@@ -1,0 +1,30 @@
+<!-- <app-public-header></app-public-header> -->
+<trending-carousel></trending-carousel>
+
+<div class="margin-top-55">
+	<div class="container">
+		<div class="tab-product tab-product-fade-effect">
+			<ul class="box-tabs nav-tab">
+	            <li class="active"><a data-animated="" data-toggle="tab" href="#tab-best-seller">Best Sellers</a></li>
+	            <li><a data-animated="fadeInLeft" data-toggle="tab" href="#tab-new-arrivals">New Arrivals</a></li>
+	            <li><a data-animated="zoomInUp" data-toggle="tab" href="#tab-most-review">Most Reviews</a></li>
+	        </ul>
+	        <div class="tab-content">
+	        	<div class="tab-container">
+	        		<div id="tab-best-seller" class="tab-panel active">
+	        			<best-seller></best-seller>
+	        			<a class="button-loadmore" routerLink="/produk/best-seller">load more!</a>
+	        		</div>
+	        		<div id="tab-new-arrivals" class="tab-panel">
+	        			<new-arrivals></new-arrivals>
+	        			<a class="button-loadmore" routerLink="/produk/new-arrival">load more!</a>
+                    </div>
+                    <div id="tab-most-review" class="tab-panel">
+	        			<most-review></most-review>
+	        			<a class="button-loadmore" routerLink="/produk/most-review">load more!</a>
+	        		</div>
+	        	</div>
+	        </div>
+		</div>
+	</div>
+</div>

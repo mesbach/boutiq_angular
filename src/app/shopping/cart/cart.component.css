@@ -1,0 +1,3 @@
+.box-cart-total .button:disabled {
+    background-color: lightgray;
+}

@@ -1,0 +1,28 @@
+<div class="navigation">
+  <ul>
+      <!-- <li *ngIf="currentPage > 1"> -->
+        <li [style.visibility]="showPrev ? 'visible' : 'hidden'">
+          <a style="cursor: pointer;" (click)="clickPrev()">
+              <i class="fa fa-long-arrow-left"></i>
+          </a>
+      </li>
+      <li *ngFor="let pg of paginationArray" class="{{pg == currentPage ? 'active' : ''}}">
+          <a style="cursor: pointer;" (click)="clickPage(pg)">{{pg}}</a>
+      </li>
+      <!-- <li>
+          <a href="#">1</a>
+      </li>
+      <li class="active">
+          <a href="#">2</a>
+      </li>
+      <li>
+          <a href="#">3</a>
+      </li> -->
+      <!-- <li *ngIf="currentPage < totalPage"> -->
+        <li [style.visibility]="showNext ? 'visible' : 'hidden'">
+          <a style="cursor: pointer;" (click)="clickNext()">
+              <i class="fa fa-long-arrow-right"></i>
+          </a>
+      </li>
+  </ul>
+</div>

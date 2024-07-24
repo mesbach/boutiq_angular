@@ -1,0 +1,8 @@
+<app-pagination-template 
+  [apiUrl]="globals.apiProductMostReview"
+  (onItemsChanged)="itemsChanged($event)"
+  >
+    <!-- <div class="container"> -->
+      <app-produk-grid-md3-sm4 [items]="items"></app-produk-grid-md3-sm4>
+    <!-- </div> -->
+</app-pagination-template>

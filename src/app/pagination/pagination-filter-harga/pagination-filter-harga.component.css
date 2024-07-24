@@ -1,0 +1,12 @@
+.filter-price {
+    width: 100%;
+    margin: 2px 0;
+    text-indent: 10px;
+    border-color: rgb(169, 169, 169);
+    border-width: 1px;
+    border-radius: 3px;
+}
+
+.widget_price_filter{
+    margin-top: 1rem;
+}

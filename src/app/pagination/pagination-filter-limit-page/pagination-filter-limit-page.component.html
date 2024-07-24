@@ -1,0 +1,6 @@
+<div class="orderby-wapper display-products">
+  <span class="label-filter">Tampilkan:</span>
+  <select class="orderby" [(ngModel)]="defaultValue" (change)="onChanged()">
+      <option *ngFor="let dl of availableFilter" [value]="dl" >{{dl}} produk</option>
+  </select>
+</div>

@@ -1,0 +1,15 @@
+<div class="widget widget_price_filter">
+  <h2 class="widget-title">Harga</h2>
+  <div>
+      <input class="filter-price" type="number" placeholder="Harga minimal ({{price_min_available | currency : 'Rp '}})" [(ngModel)]="price_min" />
+      <input class="filter-price" type="number" placeholder="Harga maksimal ({{price_max_available | currency : 'Rp '}})" [(ngModel)]="price_max" />
+      <button class="button" style="margin-top: 5px" (click)="changeHarga()">Terapkan Filter</button>
+  </div>
+  <!-- <div class="price_slider_wrapper">
+      <div class="amount-range-price">Price: $85.00 - $125.00</div>
+      <div data-label-reasult="price:" data-min="0" data-max="500" data-unit="$" class="slider-range-price " data-value-min="50"
+          data-value-max="350"></div>
+      <button class="button">Filter NOW</button> 
+      
+  </div> -->
+</div>

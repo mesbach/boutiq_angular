@@ -1,0 +1,12 @@
+<app-pagination-template 
+  [apiUrl]="apiUrl"
+  [apiMethod]="apiMethod"
+  [useFilterKategori]="true"
+  [useFilterSort]="true"
+  [filterSortConf]="{options: available_order, selected: default_order}"
+  (onItemsChanged)="itemsChanged($event)"
+  >
+  <!-- <div class="container"> -->
+    <app-produk-grid-md3-sm4 [items]="items"></app-produk-grid-md3-sm4>
+  <!-- </div> -->
+</app-pagination-template>

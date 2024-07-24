@@ -1,0 +1,35 @@
+<div class="page-banner contact-banner">
+  <div class="banner-content" style="color: black">
+    <span class="subtitle" >We’re here to make you feel happy!</span>
+        <h2 style="color: black" class="title">LET’S TALK!</h2>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+      <div class="col-sm-6">
+
+          <div class="kt-contact-form margin-top-60">
+              <div id="message-box-conact"></div>
+              <h3 class="title">REACH US FOR ANY QUESTIONS YOU MIGHT HAVE</h3>
+              <p>
+                  <input id="name" type="text" placeholder="Your name" [(ngModel)]="msg.name">
+              </p>
+              <p>
+                  <input id="email" type="text" placeholder="Your Email" [(ngModel)]="msg.email">
+              </p>
+              <p>
+                  <textarea id="content" placeholder="Your message!" [(ngModel)]="msg.content"></textarea>
+              </p>
+              <button class="button" type="button" (click)="clickSubmit()">SEND MESSAGE</button>
+          </div>
+      </div>
+      <div class="col-sm-6">
+          <div class="margin-top-60">
+              <img src="images/b/46.jpg" alt="">
+              <h6 class="margin-top-20">GIVE US A CALL</h6>
+              <p class="roboto">Want to speak with a sales representative? Drop us a line and we’d be happy to answer any questions!</p>
+              <p style="font-size: 18px; color: #222; font-weight: bold;"><i class="fa fa-phone"></i> 0878-5151-2889</p>
+          </div>
+      </div>
+  </div>
+</div>

@@ -1,0 +1,22 @@
+<div class="widget widget_recent_product">
+  <h2 class="widget-title">recent products</h2>
+  <ul class="product-categories">
+      <li *ngFor="let p of rcntPrd.myRecentProducts">
+          <div class="product-thumb">
+              <a [routerLink]="['/produk/detail/', p.id_product]">
+                  <img alt="" src="{{p.thumbnail_path | imageProductUrl | async}}">
+              </a>
+          </div>
+          <div class="product-info">
+              <h3 class="product-name">
+                  <a [routerLink]="['/produk/detail/', p.id_product]">{{p.nama_product}}</a>
+              </h3>
+              <span class="price">
+                  <ins>{{p.price | currency : "Rp "}}</ins>
+                  <!-- <del>£155.00</del> -->
+              </span>
+          </div>
+      </li>
+  </ul>
+  <p *ngIf="rcntPrd.myRecentProducts.length == 0"><i>Tidak ada data</i></p>
+</div>

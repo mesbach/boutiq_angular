@@ -1,0 +1,29 @@
+<ul class="boutique-nav main-menu clone-main-menu">
+  <li class="">
+    <a href="#" (click)="menuClick($event)">Home</a>
+  </li>
+  <li class="menu-item-has-children">
+    <a style="cursor: pointer;">Produk</a>
+    <span class="arow"></span>
+    <ul class="sub-menu">
+      <li *ngFor="let cat of categories.allCategories">
+        <a class="cursor-pointer" routerLink="/produk/cari" [queryParams]="{category: cat.kategori_master_produk}" (click)="menuClick($event)">{{cat.nama_kategori_master_produk}}</a>
+      </li>
+    </ul>
+  </li>
+  <li class="menu-item-has-children item-megamenu">
+    <a routerLink="/produk/new-arrival" (click)="menuClick($event)">Terbaru</a>
+  </li>
+  <li class="menu-item-has-children item-megamenu">
+    <a routerLink="produk/best-seller" (click)="menuClick($event)">Terlaris</a>
+  </li>
+  <li class="menu-item-has-children item-megamenu">
+    <a href="#" (click)="menuClick($event)">Big Sale</a>
+  </li>
+  <li class="menu-item-has-children">
+    <a routerLink="/article" (click)="menuClick($event)">Berita dan Artikel</a>
+  </li>
+  <li class="menu-item-has-children">
+    <a routerLink="/contact-us" (click)="menuClick($event)">Hubungi Kami</a>
+  </li>
+</ul>

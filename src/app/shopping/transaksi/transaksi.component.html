@@ -1,0 +1,62 @@
+<div class="main-container no-sidebar">
+    <div class="container">
+        <div class="main-content">
+            <div class="page-title">
+                <h3>Daftar Transaksi</h3>
+            </div>
+            <div class="row">
+                <app-pagination-info-halaman *ngIf="auth.isLoggedIn" [apiUrl]="globals.apiCheckout" [limitPerPage]="itemPerPage" [currentPage]="currentPage"
+                    [currentItemsCount]="itemFoundCount" (totalFoundChanged)="totalItemFoundChanged($event)"></app-pagination-info-halaman>
+                <div class="col-sm-12 col-md-12 transaction-container" *ngFor="let trans of myTransaksi">
+                    <div class="col-lg-9 col-md-12 col-sm-12" style="padding-left: 0px">
+                        <div class="col-lg-12" style="padding-left: 0px">
+                            <div class="col-lg-6">
+                                <p>No Tagihan: {{trans.kode_checkout}}
+                                    <br/> {{trans.created_at | date : "dd MMMM yyyy HH:mm"}}
+                                    <br/> Ongkos Kirim: {{ trans.delivery_fee != undefined && trans.delivery_fee != null ? (trans.delivery_fee | currency : "Rp ") : "Tidak tersedia"}}
+                                    <br/> Total Tagihan: {{trans.price_total | currency : "Rp "}}
+                                </p>
+                            </div>
+                            <div class="col-lg-6">
+                                <p>Status Tagihan: {{trans.statusPaymentText}}
+                                    <span *ngIf="trans.showPaymentExpiration">
+                                        <br/>Batas Pembayaran: {{trans.payment_expiration | date : "dd MMMM yyyy HH:mm"}}</span>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12" style="padding-left: 0px">
+                            <table class="table detail-barang">
+                                <tr>
+                                    <td>Barang</td>
+                                    <td>Deskripsi</td>
+                                    <td>Harga</td>
+                                </tr>
+                                <tr *ngFor="let dtl of trans.details">
+                                    <td>
+                                        <img src="{{dtl.snapshot_cart.thumbnail_path | imageProductUrl | async}}" class="small-thumbnail" />
+                                    </td>
+                                    <td>
+                                        {{dtl.snapshot_cart.nama_product}}
+                                        <br/> {{dtl.qty}} @ {{dtl.price | currency : "Rp "}}
+                                    </td>
+                                    <td>
+                                        {{dtl.qty * dtl.price | currency : "Rp "}}
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-12 col-sm-12">
+                        <a class="btn btn-success " [routerLink]="['/shopping/transaksi/detail/', trans.kode_checkout]">Detail</a>
+                        <a class="btn btn-primary " *ngIf="trans.showAddPayment" [routerLink]="['/shopping/transaksi/add_payment/', trans.kode_checkout]">
+                            <i class="fa fa-money"></i> Pembayaran</a>
+                    </div>
+                </div>
+
+                <app-pagination-filter-halaman *ngIf="auth.isLoggedIn" [limitPerPage]="itemPerPage" [currentItemsCount]="itemFoundCount"
+                    [totalItems]="totalItemFound" [currentPage]="currentPage" (pageChanged)="pageChanged($event)"></app-pagination-filter-halaman>
+            </div>
+        </div>
+    </div>
+</div>

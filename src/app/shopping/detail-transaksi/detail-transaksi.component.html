@@ -1,0 +1,113 @@
+<div class="main-container no-sidebar" *ngIf="isRequestingTransaksi == true">
+  <p style="text-align: center">Memuat detail transaksi ...</p>
+</div>
+
+<div class="main-container no-sidebar" *ngIf="!isRequestingTransaksi">
+  
+  <div class="container" *ngIf="isTransactionFound == false">
+    <h4 style="text-align: center;color: red;">Transaksi tidak dapat ditemukan</h4>
+    <p style="text-align: center"><a [routerLink]="['/shopping/transaksi']">Kembali ke daftar transaksi</a></p>
+  </div>
+
+  <div class="container" *ngIf="isTransactionFound">
+    <div class="main-content">
+      <div class="page-title">
+        <h3>Detail Transaksi</h3>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 col-md-12 transaction-container">
+          <div class="col-lg-6 col-md-12 col-sm-12" style="padding-left: 0px">
+            <div class="col-lg-12" style="padding-left: 0px">
+              <div class="col-lg-6">
+                <label class="label-header">No Tagihan</label>
+                <label class="label-data">{{Transaksi.kode_checkout}}</label>
+                <label class="label-header">{{Transaksi.created_at | date : "dd MMMM yyyy HH:mm"}}</label>
+              </div>
+              <div class="col-lg-6">
+                <label class="label-header">Total Tagihan</label>
+                <label class="label-data">{{Transaksi.price_total | currency : "Rp "}}</label>
+              </div>
+            </div>
+
+            <div class="col-lg-12" style="padding-left: 0px">
+              <div class="col-lg-12" *ngFor="let dtl of Transaksi.details" style="padding-left: 0px">
+                <div class="col-lg-6 col-md-12 col-sm-12" style="padding-left: 0px">
+                  <div class="col-lg-3">
+                    <label>Barang</label>
+                    <img src="{{dtl.snapshot_cart.thumbnail_path | imageProductUrl | async}}" class="small-thumbnail" />
+                  </div>
+                  <div class="col-lg-9" style="padding-top: 2rem">
+                    {{dtl.snapshot_cart.nama_product}}
+                    <br/> {{dtl.qty}} @ {{dtl.price | currency : "Rp "}}
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-12 col-sm-12">
+                  <label>Harga</label>
+                  <label>{{dtl.qty * dtl.price | currency : "Rp "}}</label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-6 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-sm-12 col-md-12">
+              <label class="label-header">Status Tagihan</label>
+              <label class="label-data">{{Transaksi.statusPaymentText }}</label>
+              <label class="label-header" *ngIf="showPaymentExpiration">Batas pembayaran:
+                <b>{{Transaksi.payment_expiration | date : "dd MMMM yyyy HH:mm"}}</b>
+              </label>
+            </div>
+            <div class="col-lg-12 col-sm-12 col-md-12" *ngIf="Transaksi.showStatusDelivery">
+              <label class="label-header">Status Pengiriman</label>
+              <label class="label-data">{{ Transaksi["statusDeliveryText"] }}</label>
+              <a *ngIf="Transaksi['delivery_status'] == '3'" class="btn btn-warning" [routerLink]="['/shopping/transaksi/review', kodeTransaksi]">Tulis Ulasan</a>
+            </div>
+            <div class="col-lg-12 col-sm-12 col-md-12" *ngIf="Transaksi.showAddPayment">
+              <a class="btn btn-primary"  [routerLink]="['/shopping/transaksi/add_payment/', kodeTransaksi]">
+                <i class="fa fa-money"></i> Pembayaran</a>
+            </div>
+
+            <div class="col-lg-12 col-md-12 col-sm-12" style="margin-top: 2rem">
+              <h5>Tujuan Pengiriman</h5>
+              <table class="table">
+                <tr>
+                  <td>Nama Penerima</td>
+                  <td>{{Transaksi.snapshot_alamat.nama_penerima}}</td>
+                </tr>
+                <tr>
+                  <td>Alamat</td>
+                  <td>{{Transaksi.snapshot_alamat.alamat_lengkap}}</td>
+                </tr>
+                <tr>
+                  <td>Kelurahan</td>
+                  <td>{{Transaksi.snapshot_alamat.nama_kelurahan}}</td>
+                </tr>
+                <tr>
+                  <td>Kecamatan</td>
+                  <td>{{Transaksi.snapshot_alamat.nama_kecamatan}}</td>
+                </tr>
+                <tr>
+                  <td>Kabupaten</td>
+                  <td>{{Transaksi.snapshot_alamat.nama_kabupaten}}</td>
+                </tr>
+                <tr>
+                  <td>Provinsi</td>
+                  <td>{{Transaksi.snapshot_alamat.nama_provinsi}}</td>
+                </tr>
+                <tr>
+                  <td>Kode Pos</td>
+                  <td>{{Transaksi.snapshot_alamat.kode_pos_penerima}}</td>
+                </tr>
+                <tr>
+                  <td>Telepon</td>
+                  <td>{{Transaksi.snapshot_alamat.telepon_penerima}}</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

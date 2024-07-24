@@ -1,0 +1,10 @@
+<app-pagination-template 
+  [apiUrl]="globals.apiProductNewArrival"
+  [apiMethod]="'get_many?get-new-arrival'"
+  [showInfoHalaman]="true"
+  (onItemsChanged)="itemsChanged($event)"
+  >
+  <!-- <div class="container"> -->
+    <app-produk-grid-md3-sm4 [items]="items"></app-produk-grid-md3-sm4>
+  <!-- </div> -->
+</app-pagination-template>

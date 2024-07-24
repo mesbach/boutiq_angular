@@ -1,0 +1,23 @@
+
+<div class="container">
+  <h3 class="page-title">Our Blog</h3>
+  <div class="blog-grid butique-masonry">
+      <div class="masonry-grid" data-layoutmode="masonry" data-cols="3" style="display: block; position: relative; box-sizing: border-box">
+          <div class="grid-item masonry-item col-lg-3" *ngFor="let item of articles.listArticle">
+              <div class="blog-item">  
+                  <div class="post-thumbnail">                               
+                      <a class="banner-opacity" [routerLink]="['/article', item.id_newsfeed]"><img alt="17_blog" src="{{item.gambar_berita}}"></a>
+                  </div> 
+                  <h3 class="blog-title"><a [routerLink]="['/article', item.id_newsfeed]">{{item.judul}}</a></h3>
+                  <div class="entry-meta">
+                      <span class="post-date">{{item.created_at | date : "dd MMMM yyyy"}}</span>
+                      <span class="blog-comment"><i class="fa fa-comment"></i><span class="count-comment">{{item.jumlah_comment}}</span></span>
+                  </div>
+                  <div class="blog-short-desc" [innerHTML]="item.content_short"></div>
+                  <a class="readmore" [routerLink]="['/article', item.id_newsfeed]" >Readmore</a>
+              </div>
+          </div>
+          
+      </div>
+  </div>
+</div>

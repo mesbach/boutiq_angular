@@ -1,0 +1,94 @@
+<!-- <app-public-header></app-public-header> -->
+<div class="main-container no-sidebar" *ngIf="isRequesting == true">
+    <p style="text-align: center">Memuat data transaksi ...</p>
+</div>
+
+<div class="main-container no-sidebar" *ngIf="isRequesting == false">
+    
+    <div *ngIf="isTransactionFound == false">
+        <h4 style="text-align: center">Data Transaksi tidak dapat ditemukan</h4>
+        <p style="text-align: center"><a routerLink="/shopping/transaksi">Kembali ke daftar transaki</a></p>
+    </div>
+
+    <div class="container" *ngIf="isTransactionFound == true">
+        <div class="main-content">
+            <div class="page-title">
+                <h3>Upload Bukti Pembayaran</h3>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 detail-transaksi" >
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-lg-4">No Transaksi</label>
+                            <label class="col-lg-8">{{myTransaksi.kode_checkout}}</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-4">Total</label>
+                            <label class="col-lg-8">{{myTransaksi.price_total | currency : "Rp "}}</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-4">Tanggal Transaksi</label>
+                            <label class="col-lg-8">{{myTransaksi.created_at | date : "dd MMMM yyyy HH:mm"}}</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-4">Batas Pembayaran</label>
+                            <label class="col-lg-8">{{myTransaksi.payment_expiration | date : "dd MMMM yyyy HH:mm"}}</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-4">Tujuan Pengiriman</label>
+                            <div class="col-lg-8" >
+                                <ul class="list-unstyled">
+                                    <li>{{myTransaksi.tujuan_pengiriman.nama_penerima}}</li>
+                                    <li>{{myTransaksi.tujuan_pengiriman.alamat_lengkap}}</li>
+                                    <li>Kel. {{myTransaksi.tujuan_pengiriman.nama_kelurahan}}</li>
+                                    <li>Kec. {{myTransaksi.tujuan_pengiriman.nama_kecamatan}}</li>
+                                    <li>Kab. {{myTransaksi.tujuan_pengiriman.nama_kabupaten}}</li>
+                                    <li>{{myTransaksi.tujuan_pengiriman.nama_provinsi}} {{myTransaksi.tujuan_pengiriman.kode_pos_penerima}}</li>
+                                    <li>Telepon/Handphone: {{myTransaksi.tujuan_pengiriman.telepon_penerima}}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 form-upload" >
+                    <div class="form-horizontal">
+                        <h5>Metode Pembayaran</h5>
+                        <div class="form-group">
+                            <label class="col-lg-4">Bank</label>
+                            <label class="col-lg-8">{{myTransaksi.payment_method.nama_bank}}</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-4">No Rekeneing</label>
+                            <label class="col-lg-8">{{myTransaksi.payment_method.no_rekening}}</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-4">Jumlah Harus Dibayar</label>
+                            <label class="col-lg-8">{{myTransaksi.price_total | currency : "Rp "}}</label>
+                        </div>
+                    </div>
+                    <div class="col-lg-12" *ngIf="hasHistoryPayment">
+                        <h5>Pembayaran yang pernah dilakukan</h5>
+                        <div class="col-lg-12" *ngFor="let hstry of historyPayment" style="margin-top: 1rem; padding-left: 0px">
+                            <div class="col-lg-4" style="padding-left: 0px">
+                                <a href="{{hstry.file_path}}" target="_blank"> <img src="{{hstry.file_path}}" /> </a>
+                            </div>
+                            <div class="col-lg-8">
+                                <p>Status: <b>{{hstry.status_text}}</b> <br/>
+                                    Tanggal: {{hstry.created_at | date : "dd MMMM yyyy HH:mm"}}
+                                </p>
+                                <i>{{hstry.keterangan}}</i>
+                            </div>
+                        </div>
+                    </div>
+                    <p>Silakan upload bukti transfer untuk transaksi ini</p>
+                    <input type="file" class="btn btn-primary" (change)="inputFileChanged($event)" style="display: none" #pilihFile/>
+                    <button type="button" class="btn btn-primary" (click)="pilihFile.click()" ><i class="fa fa-file"></i> Pilih File</button>
+                    <button type="button" class="btn btn-success" (click)="clickUpload()"><i class="fa fa-upload"></i> Upload</button>
+                    <div class="col-lg-12" *ngIf="inputFile != null" style="margin-top: 1rem">
+                        <img src="{{imagePreviewData}}" style="max-height: 300px"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

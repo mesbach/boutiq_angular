@@ -1,0 +1,20 @@
+<div class="widget widget_fillter_color">
+  <h2 class="widget-title">Warna</h2>
+  <div class="inner">
+      <a *ngFor="let color of availableColors" class="cursor-pointer {{color.selected ? 'active' : ''}}" (click)="applyColorFilter(color)">
+          <span [style.background-color]="color.warna_produk"></span>
+      </a>
+      <!-- <a href="#">
+          <span style="background-color:#736357;"></span>
+      </a>
+      <a class="active" href="#">
+          <span style="background-color:#bdb871;"></span>
+      </a>
+      <a href="#">
+          <span style="background-color:#f26522;"></span>
+      </a>
+      <a href="#">
+          <span style="background-color:#fff799;"></span>
+      </a> -->
+  </div>
+</div>

@@ -1,0 +1,101 @@
+<div class="main-container no-sidebar">
+  <div class="container">
+      <div class="main-content">
+          <div class="page-title">
+              <h3>WISHLIST</h3>
+          </div>
+          <div class="row">
+              <div class="col-sm-12 col-md-12">
+                  <table class="shop_table cart">
+                      <tbody>
+                          <tr *ngFor="let item of shopping.myWishlist">
+                              <td class="product-thumbnail"><img src="{{item.thumbnail_path | imageProductUrl | async}}" alt=""></td>
+                              <td class="product-name"><a href="#">{{item.nama_product}}</a></td>
+                              <td>{{item.price | currency : "Rp "}}</td>
+                              <td>{{item.is_in_stock == "1" ? "Stok Tersedia" : "Stok Tidak Tersedia"}}</td>
+                              <td class="product-remove"><a class="cursor-pointer" (click)="shopping.removeFromWishlist(item)"><i class="fa fa-close"></i></a></td>
+                              <td class="text-right"><a class="button cursor-pointer" (click)="shopping.addToCart(item)">Tambah ke Keranjang</a></td>
+                          </tr>
+                          <!-- <tr>
+                              <td class="product-thumbnail"><img src="images/products/2.jpg" alt=""></td>
+                              <td class="product-name"><a href="#">Oversize Fit Trousers Sneaker</a></td>
+                              <td>£85.00</td>
+                              <td>Instock</td>
+                              
+                              <td class="product-remove"><a href="#"><i class="fa fa-close"></i></a></td>
+                              <td class="text-right"><a class="button" href="#">ADD TO CART</a></td>
+                          </tr>
+                          <tr>
+                              <td class="product-thumbnail"><img src="images/products/1.png" alt=""></td>
+
+                              <td class="product-name"><a href="#">Oversize Fit Trousers Sneaker</a></td>
+                              <td>£85.00</td>
+                              <td>Instock</td>
+                              <td class="product-remove"><a href="#"><i class="fa fa-close"></i></a></td>
+                              <td class="text-right"><a class="button" href="#">ADD TO CART</a></td>
+                          </tr>
+                          <tr>
+                              <td class="product-thumbnail"><img src="images/products/2.jpg" alt=""></td>
+                              <td class="product-name"><a href="#">Oversize Fit Trousers Sneaker</a></td>
+                              <td>£85.00</td>
+                              <td>Instock</td>
+                              
+                              <td class="product-remove"><a href="#"><i class="fa fa-close"></i></a></td>
+                              <td class="text-right"><a class="button" href="#">ADD TO CART</a></td>
+                          </tr>
+                          <tr>
+                              <td class="product-thumbnail"><img src="images/products/1.png" alt=""></td>
+
+                              <td class="product-name"><a href="#">Oversize Fit Trousers Sneaker</a></td>
+                              <td>£85.00</td>
+                              <td>Instock</td>
+                              <td class="product-remove"><a href="#"><i class="fa fa-close"></i></a></td>
+                              <td class="text-right"><a class="button" href="#">ADD TO CART</a></td>
+                          </tr>
+                          <tr>
+                              <td class="product-thumbnail"><img src="images/products/2.jpg" alt=""></td>
+                              <td class="product-name"><a href="#">Oversize Fit Trousers Sneaker</a></td>
+                              <td>£85.00</td>
+                              <td>Instock</td>
+                              
+                              <td class="product-remove"><a href="#"><i class="fa fa-close"></i></a></td>
+                              <td class="text-right"><a class="button" href="#">ADD TO CART</a></td>
+                          </tr> -->
+
+                      </tbody>
+                  </table>
+              </div>
+          </div>
+      </div>
+  </div>
+  <!-- <div class="margin-top-60">
+     <div class="container">
+          <div class="row">
+              <div class="col-sm-12 col-md-4">
+                  <div class="element-icon style2">
+                      <div class="icon"><i class="flaticon flaticon-origami28"></i></div>
+                      <div class="content">
+                          <h4 class="title">FREE SHIPPING WORLD WIDE</h4>
+                      </div>
+                  </div>
+              </div>
+              <div class="col-sm-12 col-md-4">
+                  <div class="element-icon style2">
+                      <div class="icon"><i class="flaticon flaticon-curvearrows9"></i></div>
+                      <div class="content">
+                          <h4 class="title">MONEY BACK GUARANTEE</h4>
+                      </div>
+                  </div>
+              </div>
+              <div class="col-sm-12 col-md-4">
+                  <div class="element-icon style2">
+                      <div class="icon"><i class="flaticon flaticon-headphones54"></i></div>
+                      <div class="content">
+                          <h4 class="title">ONLINE SUPPORT 24/7</h4>
+                      </div>
+                  </div>
+              </div>
+          </div>
+     </div>
+  </div> -->
+</div>

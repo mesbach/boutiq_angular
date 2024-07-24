@@ -1,0 +1,34 @@
+<app-public-header [showMainMenu]="false"></app-public-header>
+<div class="form-collection {{class_parent_state}}" style="margin-left: calc(50% - 175px)">
+  <div class="card elevation-3 limit-width log-in-card {{class_login}} {{class_login_turned}}">
+    <div class="card-body">
+      <div class="input-group email">
+        <input type="text" placeholder="Username" [(ngModel)]="username"/>
+      </div>
+      <div class="input-group password">
+        <input type="password" placeholder="Password" [(ngModel)]="password"/>
+      </div>
+      <a href="#" class="box-btn">Forgot Password?</a>
+    </div>
+    <div class="card-footer">
+      <button type="submit" class="login-btn" (click)="clickLogin()">Log in</button>
+    </div>
+  </div>
+
+  <div class="card elevation-2 limit-width sign-up-card {{class_signup}} {{class_signup_turned}}">
+    <div class="card-body">
+      <div class="input-group fullname">
+        <input type="text" placeholder="Username" [(ngModel)]="username"/>
+      </div>
+      <div class="input-group email">
+        <input type="email" placeholder="Email" [(ngModel)]="email"/>
+      </div>
+      <div class="input-group password">
+        <input type="password" placeholder="Password" [(ngModel)]="password"/>
+      </div>
+    </div>
+    <div class="card-footer">
+      <button type="submit" class="signup-btn" (click)="clickSignUp()">Sign Up</button>
+    </div>
+  </div>
+</div>

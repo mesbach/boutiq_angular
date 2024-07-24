@@ -1,0 +1,5 @@
+<div class="orderby-wapper">
+  <select class="orderby" [(ngModel)]="selected_order" (change)="sortChanged()">
+      <option *ngFor="let opt of available_order" [value]="opt.val">{{opt.text}}</option>
+  </select>
+</div>

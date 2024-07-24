@@ -1,0 +1,163 @@
+<header id="header" class="header style3">
+	<div class="container">
+		<div class="topbar">
+			<ul class="boutique-nav topbar-menu left" style="display: none">
+				<li>
+					<a href="#">
+						<i class="fa fa-phone"></i>Call Us: +98 765 432</a>
+				</li>
+				<li>
+					<a href="#">
+						<i class="fa fa-envelope"></i>info@idcosci.com</a>
+				</li>
+			</ul>
+			<ul class="boutique-nav topbar-menu right" style="margin-bottom: 1rem" #menuContainer1>
+				<li class="menu-item-has-children" #menuAkun>
+					<a style="cursor: pointer;">
+						<i class="fa fa-lock"></i> {{ auth.isLoggedIn ? "Hello, " + auth.nama_akun : "Account" }}
+						<span class="badge" *ngIf="auth.isLoggedIn == true && auth.myProfile == null">!</span>
+						<span class="label label-primary label-badges" *ngIf="shopping.unfinishedTransCount > 0">{{shopping.unfinishedTransCount}}</span>
+					</a>
+					<ul class="sub-menu">
+						<li *ngIf="auth.isLoggedIn">
+							<a routerLink="/account/profile" (click)="menuClick($event, menuAkun)">
+								<i class="icon-user icons"></i>
+								<span> Akun Saya </span>
+								<span class="badge" *ngIf="auth.myProfile == null">!</span>
+							</a>
+						</li>
+						<li *ngIf="auth.isLoggedIn">
+							<a routerLink="/shopping/wishlist" (click)="menuClick($event, menuAkun)">
+								<i class="icon-heart icons"></i>
+								<span>Kesukaan</span>
+							</a>
+						</li>
+						<li *ngIf="auth.isLoggedIn">
+							<a routerLink="/shopping/cart" (click)="menuClick($event, menuAkun)">
+								<i class="icon-note icons"></i>
+								<span>Keranjang Belanja</span>
+							</a>
+						</li>
+						<li *ngIf="auth.isLoggedIn">
+							<a routerLink="/shopping/transaksi" (click)="menuClick($event, menuAkun)">
+								<i class="icon-note icons"></i>
+								<span>Transaksi</span>
+								<span class="label label-primary label-badges" *ngIf="shopping.unfinishedTransCount > 0">{{shopping.unfinishedTransCount}}</span>
+							</a>
+						</li>
+						<li style="display: none">
+							<a href="#">
+								<i class="icon-handbag icons"></i>
+								<span>Compare</span>
+							</a>
+						</li>
+						<li *ngIf="!auth.isLoggedIn">
+							<a routerLink="/account/login" (click)="menuClick($event, menuAkun)">
+								<i class="icon-lock-open icons"></i>
+								<span>Login</span>
+							</a>
+						</li>
+						<li *ngIf="!auth.isLoggedIn">
+							<a routerLink="/account/registrasi" (click)="menuClick($event, menuAkun)">
+								<i class="icon-lock-open icons"></i>
+								<span>Daftar Baru</span>
+							</a>
+						</li>
+						<li *ngIf="auth.isLoggedIn">
+							<a href="#" (click)="clickLogout()" (click)="menuClick($event, menuAkun)">
+								<i class="icon-lock-open icons"></i>
+								<span>Logout</span>
+							</a>
+						</li>
+					</ul>
+				</li>
+				<li class="menu-item-has-children" style="display: none">
+					<a href="#">USD</a>
+					<ul class="sub-menu">
+						<li>
+							<a href="#">USD</a>
+						</li>
+						<li>
+							<a href="#">EURO</a>
+						</li>
+					</ul>
+				</li>
+				<li class="menu-item-has-children" style="display: none">
+					<a href="#">
+						<img src="assets/images/flag3.png" alt="">English</a>
+					<ul class="sub-menu">
+						<li>
+							<a href="#">English</a>
+						</li>
+						<li>
+							<a href="#">French</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+		<div class="main-menu-wapper">
+			<div class="row">
+				<div class="col-sm-12 col-md-3 logo-wapper">
+					<div class="logo">
+						<a href="#">
+							<img src="assets/images/logo.png" alt="">
+						</a>
+					</div>
+				</div>
+				<div class="col-sm-12 col-md-9 menu-wapper">
+					<div class="top-header">
+						<span class="mobile-navigation">
+							<i class="fa fa-bars"></i>
+						</span>
+						<div class="slogan">Busana Muslimah Aulia Fashion</div>
+						<div class="box-control">
+							<form class="box-search">
+								<div class="inner">
+									<input type="text" class="search" placeholder="Cari disini..." [(ngModel)]="shopping.searchKeyword" name="searchKeyword"
+									 [value]="shopping.searchKeyword">
+									<button class="button-search" (click)="toSearchPage()">
+										<span class="pe-7s-search"></span>
+									</button>
+								</div>
+							</form>
+							<div class="mini-cart" *ngIf="auth.isLoggedIn" #miniCartContainer >
+								<a class="cart-link" style="cursor: pointer;">
+									<span class="icon pe-7s-cart"></span>
+									<span class="count">{{shopping.myCart.length}}</span> {{shopping.priceTotalInCart | currency : "Rp "}}</a>
+								<div class="show-shopping-cart">
+									<h3 class="title">Ada
+										<span class="text-primary">({{shopping.myCart.length}} Item)</span> di Keranjang Belanja Anda</h3>
+									<ul class="list-product" style="overflow-y: auto; height: calc(100vh - 300px)">
+										<li *ngFor="let p of shopping.myCart">
+											<div class="thumb">
+												<img src="{{p.thumbnail_path | imageProductUrl | async}}" alt="" style="max-width: 90px; max-height: 90px">
+											</div>
+											<div class="info">
+												<h4 class="product-name">
+													<a [routerLink]="['/produk/detail/', p.kode_product]" (click)="cartItemClick(miniCartContainer)">{{p.nama_product}}</a>
+												</h4>
+												<span class="price">{{p.qty}} x {{p.price | currency : "Rp "}}</span>
+												<a class="remove-item" (click)="removeFromCart(p)">
+													<i class="fa fa-close"></i>
+												</a>
+											</div>
+										</li>
+									</ul>
+									<div class="sub-total">
+										Subtotal: {{shopping.priceTotalInCart | currency : "Rp "}}
+									</div>
+									<div class="group-button">
+										<a routerLink="/shopping/cart" class="button">Keranjang Belanja</a>
+										<a routerLink="/shopping/checkout" class="check-out button">CheckOut</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<app-main-menu *ngIf="showMainMenu"></app-main-menu>
+				</div>
+			</div>
+		</div>
+	</div>
+</header>

@@ -1,0 +1,11 @@
+<div class="comment-form">
+  <h3 class="comment-reply-title">Tinggalkan Komentar</h3>
+  <form method="post">
+    <!-- <input type="text" id="author" name="author" value="" placeholder="Your name" size="30" aria-required="true"> -->
+    <!-- <input type="text" id="email" name="email" value="" size="30" placeholder="Your Email" aria-required="true"> -->
+    <textarea class="comment-form-comment" name="comment" cols="45" placeholder="Komentar Anda" rows="8" aria-required="true" [(ngModel)]="comment"></textarea>
+    <div class="clear"></div>
+    <input type="submit" name="button" class="submit style2" value="Submit" (click)="submitComment()">
+    <!-- <input class="button" type="hidden" name="comment_parent" id="comment_parent" value="0"> -->
+  </form>
+</div>
